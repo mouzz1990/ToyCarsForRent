@@ -64,13 +64,8 @@ namespace ToyCars
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int totalSeconds = System.Convert.ToInt32(value);
-
-            //Temp Spike
-            int seconds = totalSeconds % 60;
-            int minutes = totalSeconds / 60;
-
-            return string.Format("{0}:{1}", minutes, seconds);
+            TimeSpan ts = (TimeSpan)value;
+            return string.Format("{0:00}:{1:00}:{2:00}", ts.Hours, ts.Minutes, ts.Seconds);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

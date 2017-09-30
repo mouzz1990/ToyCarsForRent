@@ -17,7 +17,7 @@ namespace ToyCars
             CarTimer.AutoReset = true;
             CarTimer.Elapsed += new ElapsedEventHandler(CarTimer_Elapsed);
             
-            TimePassed = 0;
+            //TimePassed = 0;
             TimePassedTimer = new Timer(1000);
             TimePassedTimer.Elapsed += new ElapsedEventHandler(TimePassedTimer_Elapsed);
            
@@ -55,9 +55,9 @@ namespace ToyCars
             set { isFree = value; OnPropertyChanged("IsFree"); }
         }
 
-        private double timePassed;
+        private TimeSpan timePassed;
         [NotMapped]
-        public double TimePassed
+        public TimeSpan TimePassed
         {
             get { return timePassed; }
             set { timePassed = value; OnPropertyChanged("TimePassed"); }
@@ -65,24 +65,33 @@ namespace ToyCars
         #endregion
 
         #region Timers
-        //Timer for count passed time
+        ////////////////////////Timer for count passed time
         private Timer TimePassedTimer;
-        
+        private DateTime TimePassedTimerEndTime;
+
+        //TimePassedTimer elapsed method wich counts time to end every second
         void TimePassedTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            TimePassed++;
+            TimePassed = TimeLeft();
         }
 
-        //Main timer
+        //Take time to end
+        private TimeSpan TimeLeft()
+        {
+            return TimePassedTimerEndTime - DateTime.Now;
+        }
+
+        ////////////////////////Main timer
         public Timer CarTimer;
         private double CarTimerInterval = 2000;
 
+        //Setting up main timer interval
         public void SetTimerInterval(int minutes)
         {
-            CarTimerInterval = (double)minutes * 60000;
-            //CarTimerInterval = (double)minutes * 1000;
-            
+            CarTimerInterval = (double)minutes * 60000;            
         }
+
+        //Start all of timers when start button pressed
         public void StartCarTimer()
         {
             //Main timer
@@ -90,18 +99,19 @@ namespace ToyCars
             CarTimer.Start();
             IsFree = false;
 
-            //Count passed time
-            TimePassed = 0;
+            //Timer to show time to end
+            TimePassedTimerEndTime = DateTime.Now.AddMilliseconds(CarTimerInterval);
             TimePassedTimer.Start();
         }
 
+        //Main CarTimer elapsed method
         void CarTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             IsFree = true;
             CarTimer.Stop();
 
             TimePassedTimer.Stop();
-
+            //Event
             OnCarTimerElapsed();
         }
 

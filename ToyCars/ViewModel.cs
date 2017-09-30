@@ -55,12 +55,12 @@ namespace ToyCars
         #endregion
 
         #region Commands
-        public RelayCommands startLendCar;
-        public RelayCommands StartLendCar
+        public RelayCommands startRentCar;
+        public RelayCommands StartRentCar
         {
             get 
             {
-                return startLendCar ?? (startLendCar = new RelayCommands(
+                return startRentCar ?? (startRentCar = new RelayCommands(
                     (obj) => 
                     {
                         SelectedCar.CarTimerElapsed -= new EventHandler(SelectedCar_CarTimerElapsed);
