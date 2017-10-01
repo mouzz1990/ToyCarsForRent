@@ -9,14 +9,15 @@ using System.Windows;
 
 namespace ToyCars
 {
-    public class NewToyCarViewModel : INotifyPropertyChanged
+    public class AddChangeToyCarViewModel : INotifyPropertyChanged
     {
         //DB context
-        ToyCarsContext context;
+        ToyCarsContext Context;
 
-        public NewToyCarViewModel(ObservableCollection<ToyCar> toyCars, ToyCar selectedCar = null)
+        public AddChangeToyCarViewModel(ObservableCollection<ToyCar> toyCars, ToyCarsContext context, ToyCar selectedCar = null)
         {
             ToyCars = toyCars;
+            Context = context;
 
             if (selectedCar != null)
             {
@@ -69,10 +70,12 @@ namespace ToyCars
                         newCar.Title = Title;
                         newCar.ImageUri = ImageUri;
 
-                        using (context = new ToyCarsContext())
+                        //using (Context = new ToyCarsContext())
                         {
-                            context.ToyCars.Add(newCar);
-                            context.SaveChanges();
+                            Context.ToyCars.Add(newCar);
+                            Context.SaveChanges();
+
+                            newCar = Context.ToyCars.Single(x => x.Title == Title);
 
                             ToyCars.Add(newCar);
 
@@ -120,13 +123,13 @@ namespace ToyCars
                         ToyCarToChange.Title = Title;
                         ToyCarToChange.ImageUri = ImageUri;
 
-                        using (context = new ToyCarsContext())
+                        //using (Context = new ToyCarsContext())
                         {
-                            ToyCar dbCar = context.ToyCars.Single(x => x.ID == ToyCarToChange.ID);
+                            ToyCar dbCar = Context.ToyCars.Single(x => x.ID == ToyCarToChange.ID);
                             dbCar.Title = Title;
                             dbCar.ImageUri = ImageUri;
 
-                            context.SaveChanges();
+                            Context.SaveChanges();
 
                             OnCloseWindowRequest();
                         }

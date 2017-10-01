@@ -13,15 +13,16 @@ namespace ToyCars
     {
         public ToyCar()
         {
+            //Initalizing main timer
             CarTimer = new Timer(CarTimerInterval);
             CarTimer.AutoReset = true;
             CarTimer.Elapsed += new ElapsedEventHandler(CarTimer_Elapsed);
             
-            //TimePassed = 0;
+            //Initalizing time passed timer
             TimePassedTimer = new Timer(1000);
             TimePassedTimer.Elapsed += new ElapsedEventHandler(TimePassedTimer_Elapsed);
-           
-            IsFree = true;   
+
+            IsFree = true;
         }
 
         #region Properties
@@ -61,6 +62,34 @@ namespace ToyCars
         {
             get { return timePassed; }
             set { timePassed = value; OnPropertyChanged("TimePassed"); }
+        }
+
+        private double todayCash;
+        [NotMapped]
+        public double TodayCash
+        {
+            get { return todayCash; }
+            set { todayCash = value; OnPropertyChanged("TodayCash"); }
+        }
+
+        #endregion
+
+        #region Methods
+        //Get Today Cash 
+        public void GetTodayCash(ToyCarsContext context)
+        {
+            TodayCash = 0;
+            DateTime today = DateTime.Today;
+
+            var rentInfo = from d in context.RentCarsInformation
+                           where d.RentDateTime.Year == today.Year && d.RentDateTime.Month == today.Month &&
+                           d.RentDateTime.Day == today.Day && d.RenterToyCarId == ID
+                           select d;
+
+            foreach (var r in rentInfo)
+            {
+                TodayCash += r.Price;
+            }
         }
         #endregion
 

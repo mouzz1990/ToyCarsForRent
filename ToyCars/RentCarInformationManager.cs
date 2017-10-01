@@ -9,19 +9,19 @@ namespace ToyCars
     {
         ToyCarsContext context;
 
-        public void AddInformationAboutCarRent(ToyCar car, int time, double price)
+        public void AddInformationAboutCarRent(ToyCar car, int time, double price, ToyCarsContext context)
         {
-            using (context = new ToyCarsContext())
-            {
-                RentCarInformation rci = new RentCarInformation();
-                rci.RenterToyCarId = car.ID;
-                rci.Price = price;
-                rci.RentTime = time;
-                rci.RentDateTime = DateTime.Now;
+            this.context = context;
 
-                context.RentCarsInformation.Add(rci);
-                context.SaveChanges();
-            }
+            RentCarInformation rci = new RentCarInformation();
+            rci.RenterToyCarId = car.ID;
+            rci.Price = price;
+            rci.RentTime = time;
+            rci.RentDateTime = DateTime.Now;
+
+            context.RentCarsInformation.Add(rci);
+            context.SaveChanges();
+            
         }
     }
 }

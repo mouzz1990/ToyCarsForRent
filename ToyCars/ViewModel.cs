@@ -7,31 +7,34 @@ using System.Windows;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Shapes;
+using System.Diagnostics;
 
 namespace ToyCars
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        ToyCarsContext context = new ToyCarsContext();
+        ToyCarsContext context =  new ToyCarsContext();
         RentCarInformationManager rentManager;
 
         public ViewModel()
         {
             rentManager = new RentCarInformationManager();
-
+            
             //Temp adding in DB for test
-            context.ToyCars.Add(new ToyCar() { Title = "Car 1", ImageUri = @"C:\images\1.jpg" });
-            context.ToyCars.Add(new ToyCar() { Title = "Car 2", ImageUri = @"C:\images\2.jpg" });
-            context.ToyCars.Add(new ToyCar() { Title = "Car 3", ImageUri = @"C:\images\3.jpg" });
-            context.ToyCars.Add(new ToyCar() { Title = "Car 4", ImageUri = @"C:\images\4.jpg" });
-            context.ToyCars.Add(new ToyCar() { Title = "Car 5", ImageUri = @"C:\images\5.jpg" });
-            context.ToyCars.Add(new ToyCar() { Title = "Car 6", ImageUri = @"C:\images\6.jpg" });
+            context.ToyCars.Add(new ToyCar() { Title = "1", ImageUri = @"C:\images\1.jpg" });
+            context.ToyCars.Add(new ToyCar() { Title = "2", ImageUri = @"C:\images\2.jpg" });
+            context.ToyCars.Add(new ToyCar() { Title = "3", ImageUri = @"C:\images\3.jpg" });
+            context.ToyCars.Add(new ToyCar() { Title = "4", ImageUri = @"C:\images\4.jpg" });
+            context.ToyCars.Add(new ToyCar() { Title = "5", ImageUri = @"C:\images\5.jpg" });
+            context.ToyCars.Add(new ToyCar() { Title = "6", ImageUri = @"C:\images\6.jpg" });
 
             context.SaveChanges();
             ///////////remove that block before release
 
             ToyCars = new ObservableCollection<ToyCar>(context.ToyCars);
-            
+            foreach (var car in ToyCars)
+                car.GetTodayCash(context);
+
             //Values in textbox Minutes and Price
             Minutes = 10;
             Price = 30;
@@ -82,7 +85,8 @@ namespace ToyCars
                         SelectedCar.SetTimerInterval(Minutes);
                         SelectedCar.StartCarTimer();
 
-                        rentManager.AddInformationAboutCarRent(SelectedCar, Minutes, Price);
+                        rentManager.AddInformationAboutCarRent(SelectedCar, Minutes, Price, context);
+                        SelectedCar.GetTodayCash(context);
                     },
                     (obj) => { return SelectedCar != null && SelectedCar.IsFree; }
                     )); 
@@ -108,7 +112,7 @@ namespace ToyCars
                 return addNewToyCar ?? (addNewToyCar = new RelayCommands(
                     (obj) => 
                     {
-                        NewToyCarWindow ntw = new NewToyCarWindow(ToyCars, false);
+                        NewToyCarWindow ntw = new NewToyCarWindow(ToyCars, false, context);
                         ntw.ShowDialog();
                     },
                     (obj) => { return true; }
@@ -125,7 +129,7 @@ namespace ToyCars
                 return changeToyCarInformation ?? (changeToyCarInformation = new RelayCommands(
                     (obj) => 
                     {
-                        NewToyCarWindow ntw = new NewToyCarWindow(ToyCars, true, SelectedCar);
+                        NewToyCarWindow ntw = new NewToyCarWindow(ToyCars, true, context, SelectedCar);
                         ntw.ShowDialog();
 
                     },
@@ -152,6 +156,19 @@ namespace ToyCars
             }
             
         }
+
+        private RelayCommands openReport;
+        public RelayCommands OpenReport
+        {
+            get
+            {
+                return openReport ?? (openReport = new RelayCommands(
+                    (obj) => { },
+                    (obj) => { return true; }
+                    ));
+            }
+        }
+
 
         #endregion
 

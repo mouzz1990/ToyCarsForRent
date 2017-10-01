@@ -37,10 +37,18 @@
                         <Border Margin="5" BorderBrush="{Binding IsFree, Converter={StaticResource ResourceKey=linearGradientBrushColorConv}}" BorderThickness="2" CornerRadius="5">
                             <Grid>
                                 <Image Width="150" Height="150" Source="{Binding ImageUri}"/>
-                                <Rectangle Width="75" Height="75" Fill="{Binding IsFree, Converter={StaticResource ResourceKey=linearGradientBrushColorConv}}" Opacity="0.8" RadiusX="20" RadiusY="20"/>
+                                <Rectangle Width="70" Height="70" Fill="{Binding IsFree, Converter={StaticResource ResourceKey=linearGradientBrushColorConv}}" Opacity="0.8" RadiusX="20" RadiusY="20"/>
                                 <TextBlock FontSize="36" Text="{Binding Title}" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 <Border HorizontalAlignment="Right" VerticalAlignment="Bottom" Background="{Binding IsFree, Converter={StaticResource ResourceKey=linearGradientBrushColorConv}}" Opacity="0.5" CornerRadius="5">
                                     <TextBlock FontSize="24" Text="{Binding TimePassed, Converter={StaticResource ResourceKey=timeConverter}}" Foreground="White"/>
+                                </Border>
+                                <Border Background="#BFFFFFD6" BorderBrush="{Binding IsFree, Converter={StaticResource ResourceKey=linearGradientBrushColorConv}}" BorderThickness="2" CornerRadius="5" Height="44" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-2,-2,0,0">
+                                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Height="40">
+                                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                                            <Image Source="images/Money3.png" Width="40" Height="40"></Image>
+                                            <TextBlock Margin="3,0,0,0" Foreground="Black" Text="{Binding TodayCash, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"></TextBlock>
+                                        </StackPanel>
+                                    </Grid>
                                 </Border>
                             </Grid>
                         </Border>
@@ -63,12 +71,12 @@
             </Grid.RowDefinitions>
             
             <StackPanel Margin="5" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock VerticalAlignment="Center">Время:</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="0,0,5,0">Время:</TextBlock>
                 <TextBox Width="150" VerticalContentAlignment="Center" Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
             
             <StackPanel Margin="5" Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock VerticalAlignment="Center">Стоимость:</TextBlock>
+                <TextBlock VerticalAlignment="Center" Margin="0,0,5,0">Стоимость:</TextBlock>
                 <TextBox Width="150" VerticalContentAlignment="Center" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             </StackPanel>
 

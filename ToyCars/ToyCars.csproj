@@ -77,13 +77,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="NewToyCarViewModel.cs" />
-    <Compile Include="NewToyCarWindow.xaml.cs">
-      <DependentUpon>NewToyCarWindow.xaml</DependentUpon>
+    <Compile Include="AddChangeToyCarViewModel.cs" />
+    <Compile Include="AddChangeToyCarWindow.xaml.cs">
+      <DependentUpon>AddChangeToyCarWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="RelayCommands.cs" />
     <Compile Include="RentCarInformation.cs" />
     <Compile Include="RentCarInformationManager.cs" />
+    <Compile Include="ReportViewModel.cs" />
+    <Compile Include="ReportWindow.xaml.cs">
+      <DependentUpon>ReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToyCar.cs" />
     <Compile Include="ToyCarConverters.cs" />
     <Compile Include="ToyCarsContext.cs" />
@@ -100,7 +104,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NewToyCarWindow.xaml">
+    <Page Include="AddChangeToyCarWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,6 +149,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\Money3.png" />
     <Content Include="ToyCarsDataBase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

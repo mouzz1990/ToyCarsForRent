@@ -19,14 +19,14 @@ namespace ToyCars
     /// </summary>
     public partial class NewToyCarWindow : Window
     {
-        NewToyCarViewModel vm;
+        AddChangeToyCarViewModel vm;
         ObservableCollection<ToyCar> ToyCars;
 
-        public NewToyCarWindow(ObservableCollection<ToyCar> toyCars, bool editMode, ToyCar selectedCar = null)
+        public NewToyCarWindow(ObservableCollection<ToyCar> toyCars, bool editMode, ToyCarsContext context, ToyCar selectedCar = null)
         {
             InitializeComponent();
             ToyCars = toyCars;
-            vm = new NewToyCarViewModel(ToyCars, selectedCar);
+            vm = new AddChangeToyCarViewModel(ToyCars, context, selectedCar);
             DataContext = vm;
 
             vm.CloseWindowRequest += Vm_CloseWindowRequest;

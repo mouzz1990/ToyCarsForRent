@@ -15,13 +15,13 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
-            <TextBlock VerticalAlignment="Center">Название:</TextBlock>
+            <TextBlock VerticalAlignment="Center" Margin="0,0,5,0">Название:</TextBlock>
             <TextBox VerticalAlignment="Center" Width="190" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Margin="0,6"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
-            <TextBlock VerticalAlignment="Center">Фото:</TextBlock>
-            <TextBox VerticalAlignment="Center" Width="150" Text="{Binding ImageUri, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBlock VerticalAlignment="Center"  Margin="0,0,5,0">Фото:</TextBlock>
+            <TextBox VerticalAlignment="Center" Width="155" Text="{Binding ImageUri, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Width="30" Height="30" Margin="5" Command="{Binding OpenImageFile}">↑</Button>
         </StackPanel>
 
