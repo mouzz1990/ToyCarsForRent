@@ -22,10 +22,12 @@ namespace ToyCars
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ViewModel();
+            DataContext = new ViewModel();            
+        }
 
-            ListBox lb = new ListBox();
-            
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
