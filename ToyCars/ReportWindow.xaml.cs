@@ -18,9 +18,10 @@ namespace ToyCars
     /// </summary>
     public partial class ReportWindow : Window
     {
-        public ReportWindow()
+        public ReportWindow(ToyCarsContext context)
         {
             InitializeComponent();
+            DataContext = new ReportViewModel(context);
         }
     }
 }

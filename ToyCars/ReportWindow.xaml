@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToyCars"
         mc:Ignorable="d"
-        Title="ReportWindow" Height="350" Width="450">
+        Title="ReportWindow" Height="350" Width="550">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -22,21 +22,22 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Margin="5" VerticalAlignment="Center">Отчет за период</TextBlock>
-            
+            <TextBlock Margin="5" VerticalAlignment="Center" FontSize="18">Отчет за период</TextBlock>
+
             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                <TextBlock VerticalAlignment="Center">От:</TextBlock>
-                <DatePicker></DatePicker>
+                <TextBlock VerticalAlignment="Center" FontSize="16">От:</TextBlock>
+                <DatePicker DisplayDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5">
-                <TextBlock VerticalAlignment="Center">До:</TextBlock>
-                <DatePicker></DatePicker>
+                <TextBlock VerticalAlignment="Center" FontSize="16">До:</TextBlock>
+                <DatePicker DisplayDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
             </StackPanel>
 
-            <Button Grid.Column="2" Grid.Row="1" Margin="5">Сформировать отчет</Button>
-            
+            <Button Grid.Column="2" Grid.Row="1" Margin="5" Command="{Binding GetReport}" FontSize="14" FontWeight="Bold">Сформировать отчет</Button>
+
         </Grid>
-        <DataGrid Grid.Row="1"></DataGrid>
+        <DataGrid Grid.Row="1" AutoGenerateColumns="True" ItemsSource="{Binding ReportInformation, UpdateSourceTrigger=PropertyChanged}"></DataGrid>
+
     </Grid>
 </Window>

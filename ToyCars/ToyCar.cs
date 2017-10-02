@@ -117,7 +117,8 @@ namespace ToyCars
         //Setting up main timer interval
         public void SetTimerInterval(int minutes)
         {
-            CarTimerInterval = (double)minutes * 60000;            
+            //CarTimerInterval = (double)minutes * 60000;            
+            CarTimerInterval = (double)minutes * 1000;
         }
 
         //Start all of timers when start button pressed

@@ -163,7 +163,12 @@ namespace ToyCars
             get
             {
                 return openReport ?? (openReport = new RelayCommands(
-                    (obj) => { },
+                    (obj) => 
+                    {
+                        ReportWindow rpw = new ReportWindow(context);
+                        rpw.ShowDialog();
+
+                    },
                     (obj) => { return true; }
                     ));
             }
